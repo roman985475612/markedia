@@ -12,6 +12,8 @@ class Tag extends Model
     
     use Sluggable;
 
+    protected $fillable = ['title'];
+
     /**
      * Return the sluggable configuration array for this model.
      *
