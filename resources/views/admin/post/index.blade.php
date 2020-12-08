@@ -19,20 +19,18 @@
                         ID
                     </th>
                     <th>Картинка</th>
-                    <th style="width: 15%">
+                    <th style="width: 10%">
                         Наименование
                     </th>
-                    <th style="width: 15%">
+                    <th style="width: 10%">
                         Slug
                     </th>
-                    <th style="width: 10%">Категория</th>
+                    <th style="width: 30%">Описание</th>
+                    <th style="width: 15%">Категория</th>
                     <th style="width: 20%">Теги</th>
                     <th style="width: 20%">
                         Дата создания<br>
                         дата обнавления
-                    </th>
-                    <th>
-                        
                     </th>
                     <th style="width: 20%">
                     </th>
@@ -45,6 +43,7 @@
                         <td><img src="{{ $post->getThumbnail() }}" alt="{{ $post->title }}" class="img-thumbnail"></td>
                         <td>{{ $post->title }}</td>
                         <td>{{ $post->slug }}</td>
+                        <td>{!! $post->description !!}</td>
                         <td>{{ $post->category->title }}</td>
                         <td>
                             @forelse ($post->getTagsTitle() as $tag)
@@ -73,7 +72,6 @@
                                     href="#">
                                     <i class="fas fa-edit">
                                     </i>
-                                    Edit
                                 </a>
                                 <a 
                                     data-action="delete"
@@ -83,7 +81,6 @@
                                     href="#">
                                     <i class="fas fa-trash">
                                     </i>
-                                    Delete
                                 </a>
                             </div>
                        </td>
@@ -107,7 +104,7 @@
 
 <!-- Modal -->
 <div class="modal fade" id="actionModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-xl">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="exampleModalLabel"></h5>
@@ -200,6 +197,26 @@ document.getElementById('createTag').addEventListener('click', event => {
     }
     actionBtn.classList.add('btn-success')
     actionBtn.textContent = 'Сохранить'
+
+    ClassicEditor
+        .create( document.querySelector( '#content' ), {
+            ckfinder: {
+                uploadUrl: '/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files&responseType=json'
+            },
+            toolbar: [ 'ckfinder', 'imageUpload', '|', 'heading', '|', 'bold', 'italic', '|', 'undo', 'redo' ]
+        } )
+        .catch( function( error ) {
+            console.error( error );
+        } );
+
+    ClassicEditor
+        .create( document.querySelector( '#description' ), {
+            toolbar: [ 'heading', '|', 'bold', 'italic', '|', 'undo', 'redo' ]
+        } )
+        .catch( function( error ) {
+            console.error( error );
+        } );
+
 
     $('.select2').select2()
     $('#actionModal').modal('show')
@@ -295,6 +312,25 @@ document.querySelector('.card-body').addEventListener('click', event => {
         actionBtn.classList.add('btn-success')
         actionBtn.textContent = 'Сохранить'
 
+        ClassicEditor
+            .create( document.querySelector( '#content' ), {
+                ckfinder: {
+                    uploadUrl: '/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files&responseType=json'
+                },
+                toolbar: [ 'ckfinder', 'imageUpload', '|', 'heading', '|', 'bold', 'italic', '|', 'undo', 'redo' ]
+            } )
+            .catch( function( error ) {
+                console.error( error );
+            } );
+
+        ClassicEditor
+            .create( document.querySelector( '#description' ), {
+                toolbar: [ 'heading', '|', 'bold', 'italic', '|', 'undo', 'redo' ]
+            } )
+            .catch( function( error ) {
+                console.error( error );
+            } );
+
         $('.select2').select2()
         $('#actionModal').modal('show')
 
@@ -371,5 +407,6 @@ function fields(obj) {
         </div>
     </div>`
 }
+
 </script>
 @endsection

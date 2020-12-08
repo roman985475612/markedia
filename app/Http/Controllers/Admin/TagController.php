@@ -92,7 +92,9 @@ class TagController extends Controller
     public function destroy(Tag $tag)
     {
         $title = $tag->title;
-        $tag->delete();
-        return redirect()->back()->with('success', 'Тег '.$title.' удален!');
+        if ($tag->remove()) {
+            return redirect()->back()->with('success', 'Тег '.$title.' удален!');
+        }
+        return redirect()->back()->with('error', 'Тег '.$title.' содержит записи, удаление невозможно!');
     }
 }

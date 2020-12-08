@@ -32,4 +32,14 @@ class Tag extends Model
     {
         return $this->belongsToMany(Post::class);
     }
+
+    public function remove()
+    {
+        $cnt = $this->posts()->count();
+        if ($cnt > 0) {
+            return false;
+        }
+        $this->delete();
+        return true;
+    }
 }

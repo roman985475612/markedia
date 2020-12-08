@@ -3,13 +3,13 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>AdminLTE 3 | Blank Page</title>
+  <title>Admin | Laravel Blog</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="csrf-token" content="{{ csrf_token() }}" />
   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700">
-  <link rel="stylesheet" href="{{ asset('assets/admin/css/admin.css') }}">
+  <link rel="stylesheet" href="{{ asset('admin/css/admin.css') }}">
 </head>
 <body class="hold-transition sidebar-mini">
 <!-- Site wrapper -->
@@ -156,7 +156,7 @@
           <img src="/assets/admin/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="#" class="d-block">Alexander Pierce</a>
+          <a href="#" class="d-block" style="text-transform: capitalize">{{ auth()->user()->name }}</a>
         </div>
       </div>
 
@@ -250,7 +250,9 @@
 </div>
 <!-- ./wrapper -->
 
-<script src="{{ asset('assets/admin/js/admin.js') }}"></script>
+<script src="https://cdn.ckeditor.com/ckeditor5/23.1.0/classic/ckeditor.js"></script>
+<script src="/js/ckfinder/ckfinder.js"></script>
+<script src="{{ asset('admin/js/admin.js') }}"></script>
 <script>
   document.querySelectorAll('.nav-sidebar a').forEach(item => {
     if (item.href == location.href) {

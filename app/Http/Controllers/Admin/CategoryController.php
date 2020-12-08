@@ -92,7 +92,9 @@ class CategoryController extends Controller
     public function destroy(Category $category)
     {
         $title = $category->title;
-        $category->delete();
-        return redirect()->back()->with('success', 'Категория '.$title.' удалена!');
+        if ($category->remove()) {
+            return redirect()->back()->with('success', 'Категория '.$title.' удалена!');
+        }
+        return redirect()->back()->with('error', 'Категория '.$title.' содержит записи, удаление невозможно!');
     }
 }
