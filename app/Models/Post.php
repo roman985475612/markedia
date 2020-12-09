@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -93,6 +94,23 @@ class Post extends Model
     public function setTags($tags_list)
     {
         $this->tags()->sync($tags_list);
+    }
+
+    public function getDate()
+    {
+        return Carbon::createFromFormat('Y-m-d H:i:s', $this->created_at)
+            ->format('d F, Y');
+    }
+
+    public function increaseViewCount()
+    {
+        $this->views += 1;
+        $this->update();
+    }
+
+    public static function findBySlug($slug)
+    {
+        return static::where('slug', $slug)->firstOrFail();
     }
 
 }

@@ -9,11 +9,14 @@ class BlogController extends Controller
 {
     public function index()
     {
-        return view('blog.index');
+        $posts = Post::with('category')->orderBy('id', 'desc')->paginate(2);
+        return view('blog.index', compact('posts'));
     }
 
-    public function show(Post $post)
+    public function show($slug)
     {
-        return view('blog.show');
+        $post = Post::findBySlug($slug);
+        $post->increaseViewCount();
+        return view('blog.show', compact('post'));
     }
 }

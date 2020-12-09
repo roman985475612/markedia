@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use App\Models\Category;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -13,7 +14,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        view()->composer('blog.layouts.sidebar', function ($view) {
+            $view->with('categories', Category::limit(4)->get());
+        });
     }
 
     /**
