@@ -10,8 +10,8 @@ use App\Http\Controllers\UserController;
 
 Route::get('/'               , [BlogController::class, 'index'])->name('home');
 Route::get('/article/{slug}' , [BlogController::class, 'show'])->name('article');
-Route::get('/category/{slug}', [BlogController::class, 'listByCategory'])->name('category');
-Route::get('/tag/{slug}'     , [BlogController::class, 'listByTag'])->name('tag');
+Route::get('/category/{slug}', [BlogController::class, 'category'])->name('category');
+Route::get('/tag/{slug}'     , [BlogController::class, 'tag'])->name('tag');
 
 Route::middleware(['guest'])->group(function() {
     Route::get('/register' , [UserController::class, 'create'])->name('user.create');

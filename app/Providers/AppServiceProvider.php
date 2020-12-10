@@ -14,7 +14,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        view()->composer('blog.layouts.sidebar', function ($view) {
+        view()->composer('blog.layouts.navbar', function ($view) {
             $view->with('categories', Category::limit(4)->get());
         });
     }

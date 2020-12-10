@@ -66,7 +66,7 @@
                                     data-description="{{ $post->description }}" 
                                     data-content="{{ $post->content }}" 
                                     data-src="{{ $post->thumbnail }}" 
-                                    data-category_id="{{ $post->category_id }}" 
+                                    data-category-id="{{ $post->category_id }}" 
                                     data-tags="{{ $post->getTags() }}" 
                                     class="btn btn-info btn-sm"
                                     href="#">
@@ -251,7 +251,7 @@ document.querySelector('.card-body').addEventListener('click', event => {
         $('#actionModal').modal('show')
     } else if (event.target.dataset.action == 'update') {
         let id = event.target.dataset.id
-        let category_id = event.target.dataset.id
+        let category_id = event.target.dataset.categoryId
         let tags = JSON.parse(event.target.dataset.tags)
         
         document.querySelector('#actionModal .modal-title').textContent = 'Редактирование статьи'

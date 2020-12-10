@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     
     <!-- Site Metas -->
-    <title>@yield('title') | Marketing Blog Template</title>
+    <title>{{ $title }} | Marketing</title>
 
     <meta name="keywords" content="">
     <meta name="description" content="">
@@ -24,13 +24,17 @@
     <div id="wrapper">
         <header class="market-header header">
             <div class="container-fluid">
-                @include('blog.layouts.sidebar')
+                @include('blog.layouts.navbar')
             </div><!-- end container-fluid -->
         </header><!-- end market-header -->
 
-        @yield('hero')
+        @if (url()->current() == route('home'))
+            @include('blog.layouts.hero')        
+        @else
+            @include('blog.layouts.breadcrumb')        
+        @endif
 
-        <section class="section lb @if (url()->current() != route('home')) m3rem @endif">
+        <section class="section lb">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-8 col-md-12 col-sm-12 col-xs-12">
