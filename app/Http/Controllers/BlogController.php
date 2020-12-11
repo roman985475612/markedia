@@ -62,4 +62,21 @@ class BlogController extends Controller
             'posts'
         ));
     }
+
+    public function search(Request $request)
+    {
+        $request->validate([
+            's' => 'required'
+        ]);
+
+        $posts = Post::findByTitle($request->s);
+        $title = "Результаты поиска по запросу {$request->s}";
+        $category_title = $request->s;
+
+        return view('blog.index', compact(
+            'posts',
+            'title',
+            'category_title'
+        ));
+    }
 }

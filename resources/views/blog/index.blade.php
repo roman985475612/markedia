@@ -3,7 +3,7 @@
 @section('content')
     <div class="page-wrapper">
         <div class="blog-custom-build">
-            @foreach ($posts as $post)
+            @forelse ($posts as $post)
                 <div class="blog-box wow fadeIn">
                     <div class="post-media">
                         <a href="{{ route('article', $post->slug) }}" title="">
@@ -31,8 +31,9 @@
                         <small><a><i class="fa fa-eye"></i> {{ $post->views }}</a></small>
                     </div><!-- end meta -->
                 </div><!-- end blog-box -->
-            @endforeach
-
+            @empty
+                <p>По Вашему запросу ничего не найдено...</p>
+            @endforelse
         </div>
     </div>
 

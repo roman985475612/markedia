@@ -12,6 +12,7 @@ Route::get('/'               , [BlogController::class, 'index'])->name('home');
 Route::get('/article/{slug}' , [BlogController::class, 'show'])->name('article');
 Route::get('/category/{slug}', [BlogController::class, 'category'])->name('category');
 Route::get('/tag/{slug}'     , [BlogController::class, 'tag'])->name('tag');
+Route::get('/search'         , [BlogController::class, 'search'])->name('search');
 
 Route::middleware(['guest'])->group(function() {
     Route::get('/register' , [UserController::class, 'create'])->name('user.create');

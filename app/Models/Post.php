@@ -7,6 +7,7 @@ use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Cache;
 
 class Post extends Model
 {
@@ -113,4 +114,32 @@ class Post extends Model
         return static::where('slug', $slug)->firstOrFail();
     }
 
+    public static function getPopular($count = 3)
+    {
+        $key = "popular_posts";
+        if (Cache::has($key)) {
+            $value = Cache::get($key);
+        } else {
+            $value = static::orderBy('views', 'desc')->take($count)->get();
+            Cache::put($key, $value, 60);
+        }
+        return $value;
+    }
+
+    public static function getRecent($count = 3)
+    {
+        $key = "recent_posts";
+        if (Cache::has($key)) {
+            $value = Cache::get($key);
+        } else {
+            $value = static::orderBy('updated_at', 'desc')->take($count)->get();
+            Cache::put($key, $value, 60);
+        }
+        return $value;
+    }
+
+    public static function findByTitle($s, $page = 2)
+    {
+        return static::where('title', 'LIKE', "%{$s}%")->with('category')->paginate($page);
+    }
 }

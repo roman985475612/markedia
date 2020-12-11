@@ -5,6 +5,7 @@ namespace App\Models;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Cache;
 
 class Category extends Model
 {
@@ -42,4 +43,22 @@ class Category extends Model
         $this->delete();
         return true;
     }
+    
+    public static function getPopular($count = 7)
+    {
+        $key = "cats{$count}";
+        
+        if (Cache::has($key)) {
+            $value = Cache::get($key);
+        } else {
+            $value = static::withCount('posts')
+                ->orderBy('posts_count', 'desc')
+                ->take($count)
+                ->get();
+            Cache::put($key, $value, 60);
+        }
+
+        return $value;
+    }
+
 }
