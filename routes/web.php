@@ -9,8 +9,9 @@ use App\Http\Controllers\BlogController;
 use App\Http\Controllers\UserController;
 
 Route::get('/'               , [BlogController::class, 'index'])->name('home');
-Route::get('/article/{slug}' , [BlogController::class, 'show'])->name('article');
+Route::get('/blog'           , [BlogController::class, 'all'])->name('category.all');
 Route::get('/category/{slug}', [BlogController::class, 'category'])->name('category');
+Route::get('/article/{slug}' , [BlogController::class, 'show'])->name('article');
 Route::get('/tag/{slug}'     , [BlogController::class, 'tag'])->name('tag');
 Route::get('/search'         , [BlogController::class, 'search'])->name('search');
 
