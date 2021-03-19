@@ -11,7 +11,7 @@ class BlogController extends Controller
 {
     public function index()
     {
-        $posts = Post::with('category')->orderBy('id', 'desc')->paginate(2);
+        $posts = Post::with('category')->orderBy('id', 'desc')->paginate(10);
         $title = 'Home';
 
         return view('blog.index', compact(
@@ -22,7 +22,7 @@ class BlogController extends Controller
 
     public function all()
     {
-        $posts = Post::with('category')->orderBy('id', 'desc')->paginate(2);
+        $posts = Post::with('category')->orderBy('id', 'desc')->paginate(10);
         $title = $category_title = 'Blog';
 
         $breadcrumbs = [
@@ -83,7 +83,7 @@ class BlogController extends Controller
     public function tag($slug)
     {
         $tag = Tag::where('slug', $slug)->firstOrFail();
-        $posts = $tag->posts()->with('category')->paginate(2);
+        $posts = $tag->posts()->with('category')->paginate(10);
         $title = $category_title = $tag->title;
 
         $breadcrumbs = [

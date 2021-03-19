@@ -25,7 +25,7 @@ class Post extends Model
      *
      * @return array
      */
-    public function sluggable()
+    public function sluggable(): array
     {
         return [
             'slug' => [
@@ -49,7 +49,11 @@ class Post extends Model
         if (is_null($this->thumbnail)) {
             return self::UPLOAD_URL . 'no-image.png';
         } else {
-            return self::UPLOAD_URL . $this->thumbnail;
+            if (substr($this->thumbnail, 0, 4) == 'http') {
+                return $this->thumbnail;
+            } else {
+                return self::UPLOAD_URL . $this->thumbnail;
+            }
         }
     }
 
