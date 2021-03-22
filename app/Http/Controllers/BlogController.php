@@ -42,6 +42,9 @@ class BlogController extends Controller
         $post = Post::findBySlug($slug);
         $post->increaseViewCount();
 
+        $prevPost = Post::find($post->hasPrev());
+        $nextPost = Post::find($post->hasNext());
+
         $title = $small_title = $post->title;
         $category_title = $post->category->title;
         $category_slug = $post->category->slug;
@@ -53,6 +56,8 @@ class BlogController extends Controller
 
         return view('blog.show', compact(
             'post',
+            'prevPost',
+            'nextPost',
             'title', 
             'small_title',
             'category_title',

@@ -16,6 +16,7 @@ class Post extends Model
     use Sluggable;
 
     const UPLOAD_FOLDER = 'public/uploads/';
+
     const UPLOAD_URL = '/storage/uploads/';
 
     protected $fillable = ['title', 'description', 'content', 'category_id'];
@@ -145,5 +146,15 @@ class Post extends Model
     public static function findByTitle($s, $page = 2)
     {
         return static::where('title', 'LIKE', "%{$s}%")->with('category')->paginate($page);
+    }
+
+    public function hasPrev()
+    {
+        return static::where('id', '<', $this->id)->max('id');
+    }
+
+    public function hasNext()
+    {
+        return static::where('id', '>', $this->id)->min('id');
     }
 }

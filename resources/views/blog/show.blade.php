@@ -92,41 +92,44 @@
         <div class="custombox clearfix">
             <h4 class="small-title">You may also like</h4>
             <div class="row">
-                <div class="col-lg-6">
-                    <div class="blog-box">
-                        <div class="post-media">
-                            <a href="marketing-single.html" title="">
-                                <img src="/assets/front/upload/market_blog_02.jpg" alt="" class="img-fluid">
-                                <div class="hovereffect">
-                                    <span class=""></span>
-                                </div><!-- end hover -->
-                            </a>
-                        </div><!-- end media -->
-                        <div class="blog-meta">
-                            <h4><a href="marketing-single.html" title="">We are guests of ABC Design Studio</a></h4>
-                            <small><a href="blog-category-01.html" title="">Trends</a></small>
-                            <small><a href="blog-category-01.html" title="">21 July, 2017</a></small>
-                        </div><!-- end meta -->
-                    </div><!-- end blog-box -->
-                </div><!-- end col -->
-
-                <div class="col-lg-6">
-                    <div class="blog-box">
-                        <div class="post-media">
-                            <a href="marketing-single.html" title="">
-                                <img src="/assets/front/upload/market_blog_03.jpg" alt="" class="img-fluid">
-                                <div class="hovereffect">
-                                    <span class=""></span>
-                                </div><!-- end hover -->
-                            </a>
-                        </div><!-- end media -->
-                        <div class="blog-meta">
-                            <h4><a href="marketing-single.html" title="">Nostalgia at work with family</a></h4>
-                            <small><a href="blog-category-01.html" title="">News</a></small>
-                            <small><a href="blog-category-01.html" title="">20 July, 2017</a></small>
-                        </div><!-- end meta -->
-                    </div><!-- end blog-box -->
-                </div><!-- end col -->
+                @if ($post->hasPrev())
+                    <div class="col-lg-6">
+                        <div class="blog-box">
+                            <div class="post-media">
+                                <a href="{{ route('article', $prevPost->slug) }}" title="">
+                                    <img src="{{ $prevPost->getThumbnail() }}" alt="" class="img-fluid">
+                                    <div class="hovereffect">
+                                        <span class=""></span>
+                                    </div><!-- end hover -->
+                                </a>
+                            </div><!-- end media -->
+                            <div class="blog-meta">
+                                <h4><a href="{{ route('article', $prevPost->slug) }}" title="">{{ $prevPost->title }}</a></h4>
+                                <small><a href="{{ route('category', $prevPost->category->slug) }}" title="">{{ $prevPost->category->title }}</a></small>
+                                <small><a href="{{ route('category', $prevPost->category->slug) }}" title="">{{ $prevPost->getDate() }}</a></small>
+                            </div><!-- end meta -->
+                        </div><!-- end blog-box -->
+                    </div><!-- end col -->
+                @endif
+                @if ($post->hasNext())
+                    <div class="col-lg-6">
+                        <div class="blog-box">
+                            <div class="post-media">
+                                <a href="{{ route('article', $nextPost->slug) }}" title="">
+                                    <img src="{{ $nextPost->getThumbnail() }}" alt="" class="img-fluid">
+                                    <div class="hovereffect">
+                                        <span class=""></span>
+                                    </div><!-- end hover -->
+                                </a>
+                            </div><!-- end media -->
+                            <div class="blog-meta">
+                                <h4><a href="{{ route('article', $nextPost->slug) }}" title="">{{ $nextPost->title }}</a></h4>
+                                <small><a href="{{ route('category', $nextPost->category->slug) }}" title="">{{ $nextPost->category->title }}</a></small>
+                                <small><a href="{{ route('category', $nextPost->category->slug) }}" title="">{{ $nextPost->getDate() }}</a></small>
+                            </div><!-- end meta -->
+                        </div><!-- end blog-box -->
+                    </div><!-- end col -->
+                @endif
             </div><!-- end row -->
         </div><!-- end custom-box -->
 
