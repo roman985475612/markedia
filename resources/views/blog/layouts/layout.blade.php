@@ -18,9 +18,12 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,700" rel="stylesheet"> 
     
     <link href="{{ asset('front/css/front.css') }}" rel="stylesheet">
+    <script src="{{ asset('front/js/sweetalert.min.js') }}"></script>
 
 </head>
 <body>
+    @include('blog.layouts.messages')
+
     <div id="wrapper">
         <header class="market-header header">
             <div class="container-fluid">
