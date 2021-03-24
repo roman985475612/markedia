@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Models\Post;
 use App\Models\Tag;
+use App\Models\User;
 
 class BlogController extends Controller
 {
@@ -27,6 +28,25 @@ class BlogController extends Controller
 
         $breadcrumbs = [
             ['Blog'],
+        ];
+        
+        return view('blog.index', compact(
+            'posts',
+            'title',
+            'category_title',
+            'breadcrumbs'
+        ));
+    }
+
+    public function postsByUser($id)
+    {
+        $user = User::where('id', $id)->firstOrFail();
+        $posts = $user->posts()->paginate(10);
+        $title = $category_title = $user->name;
+
+        $breadcrumbs = [
+            ['Blog', route('category.all')],
+            [$user->name]
         ];
         
         return view('blog.index', compact(

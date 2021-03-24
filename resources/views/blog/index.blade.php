@@ -27,7 +27,7 @@
                         <p>{!! $post->description !!}</p>
                         <small><a href="{{ route('category', $post->category->slug) }}" title="">{{ $post->category->title }}</a></small>
                         <small><a href="{{ route('article', $post->slug) }}" title="">{{ $post->getDate() }}</a></small>
-                        <small><a href="#" title="">by Jack</a></small>
+                        <small><a href="{{ route('user.posts', $post->user->id) }}" title="">by {{ $post->user->name }}</a></small>
                         <small><a><i class="fa fa-eye"></i> {{ $post->views }}</a></small>
                     </div><!-- end meta -->
                 </div><!-- end blog-box -->

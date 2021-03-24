@@ -27,6 +27,7 @@ class PostFactory extends Factory
             'content'     => $this->faker->paragraph(),
             'views'       => $this->faker->numberBetween(0, 5000),
             'category_id' => $this->faker->numberBetween(1, 10),
+            'user_id'     => $this->faker->numberBetween(1, 5),
             'thumbnail'   => 'https://source.unsplash.com/collection/' . $this->faker->numberBetween(0, 100) . '/1600x900',
         ];
     }

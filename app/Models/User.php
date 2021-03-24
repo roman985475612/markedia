@@ -10,6 +10,8 @@ use Illuminate\Notifications\Notifiable;
 class User extends Authenticatable
 {
     use HasFactory, Notifiable;
+    
+    const UPLOAD_URL = '/storage/';
 
     /**
      * The attributes that are mass assignable.
@@ -40,4 +42,19 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function posts()
+    {
+        return $this->hasMany(Post::class);
+    }
+
+    public function getThumbnail()
+    {
+        if (is_null($this->thumbnail)) {
+            return self::UPLOAD_URL . 'no-image.png';
+        } else {
+            return self::UPLOAD_URL . $this->thumbnail;
+        }
+    }
+
 }

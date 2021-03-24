@@ -12,6 +12,7 @@ use App\Http\Controllers\SubsController;
 
 Route::get('/'                  , [BlogController::class, 'index'])->name('home');
 Route::get('/blog'              , [BlogController::class, 'all'])->name('category.all');
+Route::get('/user/{id}/posts'   , [BlogController::class, 'postsByUser'])->name('user.posts');
 Route::get('/category/{slug}'   , [BlogController::class, 'category'])->name('category');
 Route::get('/article/{slug}'    , [BlogController::class, 'show'])->name('article');
 Route::get('/tag/{slug}'        , [BlogController::class, 'tag'])->name('tag');
