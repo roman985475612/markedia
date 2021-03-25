@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\TagController;
 use App\Http\Controllers\Admin\MainController;
 use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\BlogController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\SubsController;
 
@@ -29,6 +30,7 @@ Route::middleware(['guest'])->group(function() {
 
 Route::middleware(['auth'])->group(function() {
     Route::get('/logout', [UserController::class, 'logout'])->name('logout');
+    Route::post('/article/add-comment', [CommentController::class, 'store'])->name('article.add_comment');
 });
 
 Route::group([

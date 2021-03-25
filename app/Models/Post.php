@@ -45,6 +45,11 @@ class Post extends Model
         return $this->belongsTo(Category::class);
     }
 
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
+
     public function tags()
     {
         return $this->belongsToMany(Tag::class);
@@ -161,5 +166,20 @@ class Post extends Model
     public function hasNext()
     {
         return static::where('id', '>', $this->id)->min('id');
+    }
+
+    public function hasComments()
+    {
+        return $this->comments()->count() > 0;
+    }
+
+    public function countComments()
+    {
+        return $this->comments()->count();
+    }
+
+    public function getComments()
+    {
+        return $this->comments()->where('status', Comment::ALLOW)->get();
     }
 }
