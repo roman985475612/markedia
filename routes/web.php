@@ -2,9 +2,10 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\CategoryController;
-use App\Http\Controllers\Admin\TagController;
 use App\Http\Controllers\Admin\MainController;
 use App\Http\Controllers\Admin\PostController;
+use App\Http\Controllers\Admin\TagController;
+use App\Http\Controllers\Admin\SubsController as AdminSubsController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\UserController;
@@ -43,4 +44,6 @@ Route::group([
     Route::resource('/categories'   , CategoryController::class);
     Route::get('/tags/list'         , [TagController::class, 'list']);
     Route::resource('/tags'         , TagController::class);
+    Route::resource('/subs'         , AdminSubsController::class);
+    Route::get('/verify/{token}'    , [SubsController::class, 'verify'])->name('subs.verify');
 });

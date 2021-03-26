@@ -10,8 +10,12 @@
   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700">
   <link rel="stylesheet" href="{{ asset('admin/css/admin.css') }}">
+  <script src="{{ asset('common/js/sweetalert.min.js') }}"></script>
 </head>
 <body class="hold-transition sidebar-mini">
+
+@include('admin.inc.messages')
+
 <!-- Site wrapper -->
 <div class="wrapper">
   <!-- Navbar -->
@@ -145,7 +149,7 @@
            alt="AdminLTE Logo"
            class="brand-image img-circle elevation-3"
            style="opacity: .8">
-      <span class="brand-text font-weight-light">На сайт</span>
+      <span class="brand-text font-weight-light">Markedia</span>
     </a>
 
     <!-- Sidebar -->
@@ -198,6 +202,11 @@
               </p>
             </a>
           </li>
+          <li class="nav-item">
+            <a href="{{ route('subs.index') }}" class="nav-link">
+                <i class="nav-icon fas fa-paper-plane"></i><p>Подписки</p>
+            </a>
+          </li>
         </ul>
       </nav>
       <!-- /.sidebar-menu -->
@@ -211,7 +220,6 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <div class="container-fluid">
-        @include('admin.inc.messages')
         <div class="row mb-2">
           <div class="col-sm-6">
             <h1>Blank Page</h1>

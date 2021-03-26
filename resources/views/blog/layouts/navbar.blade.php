@@ -17,12 +17,13 @@
 
             @auth
                 <li class="nav-item">
-                    <a class="nav-link"
-                        @if (auth()->user()->is_admin)
-                            href="{{ route('admin.index') }}"
-                        @endif
-                    >{{ auth()->user()->name }}</a>
+                    <a class="nav-link">{{ auth()->user()->name }}</a>
                 </li>
+                @if (auth()->user()->is_admin)
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('admin.index') }}">Dashboard</a>
+                    </li>               
+                @endif
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('logout') }}">Logout</a>
                 </li>               

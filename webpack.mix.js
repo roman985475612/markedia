@@ -40,8 +40,9 @@ mix.scripts([
     'resources/assets/front/js/custom.js',
 ], 'public/assets/front/js/front.js')
 
-mix.copy('node_modules/sweetalert/dist/sweetalert.min.js', 'public/assets/front/js/sweetalert.min.js')
-
 mix.copyDirectory('resources/assets/front/fonts', 'public/assets/front/fonts')
 mix.copyDirectory('resources/assets/front/images', 'public/assets/front/images')
 mix.copyDirectory('resources/assets/front/upload', 'public/assets/front/upload')
+
+// Common
+mix.copy('node_modules/sweetalert/dist/sweetalert.min.js', 'public/assets/common/js/sweetalert.min.js')

@@ -10,6 +10,8 @@ class Subscription extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['email'];
+
     public static function findByToken($token)
     {
         return static::where('token', $token)->firstOrFail();
@@ -22,6 +24,11 @@ class Subscription extends Model
         $obj->save();
 
         return $obj;
+    }
+
+    public function isConfirmed()
+    {
+        return is_null($this->token);
     }
 
     public function generateToken()

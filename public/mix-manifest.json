@@ -4,5 +4,5 @@
     "/assets/admin/css/adminlte.min.css.map": "/assets/admin/css/adminlte.min.css.map",
     "/assets/front/css/front.css": "/assets/front/css/front.css",
     "/assets/front/js/front.js": "/assets/front/js/front.js",
-    "/assets/front/js/sweetalert.min.js": "/assets/front/js/sweetalert.min.js"
+    "/assets/common/js/sweetalert.min.js": "/assets/common/js/sweetalert.min.js"
 }
