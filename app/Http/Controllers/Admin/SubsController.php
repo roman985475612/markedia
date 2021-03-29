@@ -105,7 +105,6 @@ class SubsController extends Controller
     {
         $subs = Subscription::findByToken($token);
         $subs->confirm();
-        // return 'ok';
         return redirect()->back()->with('success', 'Вы успешно подписались на рассылку!');
     }
 }

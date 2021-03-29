@@ -26,7 +26,6 @@ class UserFactory extends Factory
             'email'       => $this->faker->safeEmail,
             'description' => $this->faker->text(200),
             'password'    => $this->faker->md5,
-            'thumbnail'   => 'user.png',
         ];
     }
 }

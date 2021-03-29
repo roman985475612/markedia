@@ -157,7 +157,7 @@
       <!-- Sidebar user (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
-          <img src="/assets/admin/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+          <img src="{{ auth()->user()->getThumbnail() }}" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
           <a href="#" class="d-block" style="text-transform: capitalize">{{ auth()->user()->name }}</a>
@@ -205,6 +205,11 @@
           <li class="nav-item">
             <a href="{{ route('subs.index') }}" class="nav-link">
                 <i class="nav-icon fas fa-paper-plane"></i><p>Подписки</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{ route('users.index') }}" class="nav-link">
+                <i class="nav-icon fas fa-users"></i><p>Пользователи</p>
             </a>
           </li>
         </ul>
