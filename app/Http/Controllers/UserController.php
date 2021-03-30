@@ -27,17 +27,16 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required',
-            'email' => 'required|email|unique:users',
-            'password' => 'required|confirmed',
+            'name'      => 'required',
+            'email'     => 'required|email|unique:users',
+            'password'  => 'required|confirmed',
         ]);
 
         $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
+            'name'      => $request->name,
+            'email'     => $request->email,
+            'password'  => $request->password
         ]);
-
-        $user->generatePassword( $request->password );
 
         Auth::login($user);
 
@@ -52,8 +51,8 @@ class UserController extends Controller
     public function loginStore(Request $request)
     {
         $request->validate([
-            'email' => 'required|email',
-            'password' => 'required'
+            'email'     => 'required|email',
+            'password'  => 'required'
         ]);
 
         $credentials = $request->only('email', 'password');

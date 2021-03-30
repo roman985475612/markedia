@@ -59,7 +59,7 @@ class Comment extends Model
 
     public function remove()
     {
-        $this->delete();
+        return $this->delete();
     }
 
     public function getDate()

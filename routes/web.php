@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\Admin\TagController;
 use App\Http\Controllers\Admin\UserController as AdminUserController;
 use App\Http\Controllers\Admin\SubsController as AdminSubsController;
+use App\Http\Controllers\Admin\CommentController as AdminCommentController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\UserController;
@@ -40,12 +41,14 @@ Route::group([
     'middleware' => 'admin',
 ], function () {
     Route::get('/', [MainController::class, 'index'])->name('admin.index');
-    Route::resource('/posts'        , PostController::class);
-    Route::get('/categories/list'   , [CategoryController::class, 'list']);
-    Route::resource('/categories'   , CategoryController::class);
-    Route::get('/tags/list'         , [TagController::class, 'list']);
-    Route::resource('/tags'         , TagController::class);
-    Route::resource('/subs'         , AdminSubsController::class);
-    Route::resource('/users'        , AdminUserController::class);
-    Route::get('/verify/{token}'    , [SubsController::class, 'verify'])->name('subs.verify');
+    Route::resource('/posts'     , PostController::class);
+    Route::get('/categories/list', [CategoryController::class, 'list']);
+    Route::resource('/categories', CategoryController::class);
+    Route::get('/tags/list'      , [TagController::class, 'list']);
+    Route::resource('/tags'      , TagController::class);
+    Route::resource('/subs'      , AdminSubsController::class)->except(['create', 'show', 'edit']);
+    Route::resource('/users'     , AdminUserController::class)->except(['create', 'show', 'edit']);
+    Route::resource('/comments'  , AdminCommentController::class)->except(['create', 'show', 'edit']);
+    Route::post('/comments/{comment}/status', [AdminCommentController::class, 'status'])->name('comments.status');
+    Route::get('/verify/{token}' , [SubsController::class, 'verify'])->name('subs.verify');
 });

@@ -16,9 +16,10 @@
             <thead>
                 <tr>
                     <th style="width: 1%">ID</th>
-                    <th style="width: 20%">Фото</th>
-                    <th style="width: 20%">Name</th>
-                    <th style="width: 20%">Email</th>
+                    <th style="width: 10%">Фото</th>
+                    <th style="width: 15%">Name</th>
+                    <th style="width: 10%">Email</th>
+                    <th style="width: 25%">Описание</th>
                     <th>Дата создания</th>
                 </tr>
             </thead>
@@ -29,6 +30,7 @@
                         <td><img class="img-thumbnail" style="height: 50px" src="{{ $item->getThumbnail() }}"></td>
                         <td>{{ $item->name }}</td>
                         <td>{{ $item->email }}</td>
+                        <td>{!! $item->description !!}</td>
                         <td>{{ $item->getDate() }}</td>
                         <td class="project-actions text-right">
                             <div class="btn-group">
@@ -37,6 +39,7 @@
                                     data-route="{{ route('users.update', ['user' => $item->id]) }}" 
                                     data-id="{{ $item->id }}"
                                     data-name="{{ $item->name }}" 
+                                    data-description="{{ $item->description }}" 
                                     data-email="{{ $item->email }}" 
                                     data-thumbnail="{{ $item->getThumbnail() }}" 
                                     class="btn btn-info fas fa-edit"
@@ -63,6 +66,7 @@
                 class="fas fa-plus-circle fa-2x"
             ></i>
         </button>
+        {{ $model->links('vendor.pagination.blog-pagination') }}
     </div>
 </div>
 @endsection
@@ -84,6 +88,7 @@ document.querySelector('.card').addEventListener('click', event => {
         form.insertAdjacentHTML('beforeEnd', getTokenField())
         form.insertAdjacentHTML('beforeEnd', getInputField({type:'text', name:'name', placeholder:'Name'}))
         form.insertAdjacentHTML('beforeEnd', getInputField({type:'email', name:'email', placeholder:'Email'}))
+        form.insertAdjacentHTML('beforeEnd', getTextarea())
         form.insertAdjacentHTML('beforeEnd', getInputField({type:'password', name:'password', placeholder:'Password'}))
         form.insertAdjacentHTML('beforeEnd', getInputField({type:'password', name:'password_confirmation', placeholder:'Retype Password'}))
         form.insertAdjacentHTML('beforeEnd', getImageForm( thumbnail ))
@@ -100,6 +105,14 @@ document.querySelector('.card').addEventListener('click', event => {
             }
         })
         document.body.append(form)
+
+        ClassicEditor
+            .create( document.getElementById( 'description' ), {
+                toolbar: [ 'heading', '|', 'bold', 'italic', '|', 'undo', 'redo' ]
+            } )
+            .catch( function( error ) {
+                console.error( error );
+            } );
         
         swal({
             title: 'Создание пользователя', 
@@ -113,6 +126,7 @@ document.querySelector('.card').addEventListener('click', event => {
     } else if (event.target.dataset.action == 'update') {
         let id = event.target.dataset.id
         let name = event.target.dataset.name
+        let description = event.target.dataset.description
         let email = event.target.dataset.email
         let thumbnail = event.target.dataset.thumbnail
         let url = event.target.dataset.route
@@ -125,6 +139,7 @@ document.querySelector('.card').addEventListener('click', event => {
         form.insertAdjacentHTML('beforeEnd', getMethodField( 'PUT' ))
         form.insertAdjacentHTML('beforeEnd', getInputField({type:'text', name:'name', placeholder:'Name', value:name}))
         form.insertAdjacentHTML('beforeEnd', getInputField({type:'email', name:'email', placeholder:'Email', value:email}))
+        form.insertAdjacentHTML('beforeEnd', getTextarea( description ))
         form.insertAdjacentHTML('beforeEnd', getInputField({type:'password', name:'password', placeholder:'Password'}))
         form.insertAdjacentHTML('beforeEnd', getInputField({type:'password', name:'password_confirmation', placeholder:'Retype Password'}))
         form.insertAdjacentHTML('beforeEnd', getImageForm( thumbnail ))
@@ -141,7 +156,15 @@ document.querySelector('.card').addEventListener('click', event => {
             }
         })
         document.body.append(form)
-        
+
+        ClassicEditor
+            .create( document.getElementById( 'description' ), {
+                toolbar: [ 'heading', '|', 'bold', 'italic', '|', 'undo', 'redo' ]
+            } )
+            .catch( function( error ) {
+                console.error( error );
+            } );
+
         swal({
             title: 'Обновление подписки', 
             content: form,
@@ -202,8 +225,19 @@ function getInputField( params ) {
     return result
 }
 
+function getTextarea( description = '' ) {
+    return `<div class="form-group">
+    <textarea
+        rows="3"
+        name="description" 
+        class="form-control" 
+        id="description" 
+        placeholder="Описание"
+    >${description}</textarea></div>`
+}
+
 function getImageForm( thumbnail ) {
-    return `<img id="formImg" src="${thumbnail}" class='img-thumbnail mb-3'>
+    return `<img id="formImg" src="${thumbnail}" class='img-thumbnail mb-3' width="150px">
             <div class="custom-file">
                 <input type="file" class="custom-file-input" id="thumbnail" name="thumbnail">
                 <label class="custom-file-label" id="thumbnailLabel" for="thumbnail">Выберите картинку</label>

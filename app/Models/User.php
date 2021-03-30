@@ -26,6 +26,7 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'description',
         'password',
     ];
 
@@ -66,6 +67,11 @@ class User extends Authenticatable
             $this->save();
         }
         return $this;
+    }
+
+    public function setPasswordAttribute($password)
+    {
+        $this->attributes['password'] = Hash::make($password);
     }
 
     public function getThumbnail()

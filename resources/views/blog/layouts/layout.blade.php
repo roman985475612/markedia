@@ -128,6 +128,9 @@
         
     </div><!-- end wrapper -->
 
+<script src="https://cdn.ckeditor.com/ckeditor5/23.1.0/classic/ckeditor.js"></script>
+<script src="/js/ckfinder/ckfinder.js"></script>
 <script src="{{ asset('front/js/front.js') }}"></script>
+@yield('scripts')
 </body>
 </html>

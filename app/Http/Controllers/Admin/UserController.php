@@ -47,11 +47,11 @@ class UserController extends Controller
         ]);
 
         $user = User::create([
-            'name'  => $request->name,
-            'email' => $request->email,
+            'name'          => $request->name,
+            'email'         => $request->email,
+            'description'   => $request->description,
+            'password'      => $request->password
         ]);
-
-        $user->generatePassword( $request->password );
 
         if ($request->hasFile('thumbnail')) {
             $user->uploadFile($request->file('thumbnail'));
@@ -96,6 +96,7 @@ class UserController extends Controller
                 'email',
                 Rule::unique('users')->ignore($user->id),
             ],
+            'password'  => 'nullable|confirmed',
             'thumbnail' => 'nullable|image',
         ]);
 
@@ -109,7 +110,15 @@ class UserController extends Controller
             $user->save();
         }
 
-        $user->generatePassword( $request->password );
+        if ( $request->description && $request->description != $user->description ) {
+            $user->description = $request->description;
+            $user->save();
+        }
+
+        if ( $request->password ) {
+            $user->password = $request->password;
+            $user->save();
+        }
 
         if ( $request->hasFile('thumbnail') ) {
             $user->uploadFile($request->file('thumbnail'));

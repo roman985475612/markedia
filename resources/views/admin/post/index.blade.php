@@ -98,6 +98,7 @@
         <i class="fas fa-plus-circle"></i>&nbsp;
         Новая
     </a>
+    {{ $posts->links('vendor.pagination.blog-pagination') }}
     </div>
     <!-- /.card-footer-->
 </div>

@@ -73,13 +73,14 @@
   </div>
     <!-- /.card-body -->
     <div class="card-footer">
-      <a 
-        id="createTag"
-        class="btn btn-success btn-sm" 
-        href="{{ route('tags.create') }}">
-        <i class="fas fa-plus-circle"></i>&nbsp;
-        Новая
-    </a>
+        <a 
+            id="createTag"
+            class="btn btn-success btn-sm" 
+            href="{{ route('tags.create') }}">
+            <i class="fas fa-plus-circle"></i>&nbsp;
+            Новая
+        </a>
+        {{ $tags->links('vendor.pagination.blog-pagination') }}
     </div>
     <!-- /.card-footer-->
 </div>

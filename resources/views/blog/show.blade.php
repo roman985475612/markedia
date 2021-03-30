@@ -62,7 +62,7 @@
 
                 <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12">
                     <h4><a href="{{ route('user.posts', $post->user->id) }}">{{ $post->user->name }}</a></h4>
-                    <p>{{ $post->user->description }}</p>
+                    <p>{!! $post->user->description !!}</p>
 
                     <div class="topsocial">
                         <a href="#" data-toggle="tooltip" data-placement="bottom" title="Facebook"><i class="fa fa-facebook"></i></a>
@@ -125,6 +125,33 @@
 
         <hr class="invis1">
 
+        @auth
+            <div class="custombox clearfix">
+                <h4 class="small-title">Leave a Reply</h4>
+                <div class="row">
+                    <div class="col-lg-12">
+                        {!! Form::open([
+                            'id'    => 'comment-form',
+                            'method'=> 'post',
+                            'route' => 'article.add_comment', 
+                            'class' => 'form-wrapper'
+                        ]) !!}
+                            {{ Form::hidden('post_id', $post->id) }}
+                            {{ Form::textarea('text', null, [
+                                'id'          => 'comment',
+                                'class'       => 'form-control', 
+                                'placeholder' => 'Your comment',
+                                'required'    => true
+                            ]) }}
+                            <div class="my-3">
+                                <button type="submit" class="btn btn-primary" onclick="document.getElementById('comment-form').submit()">Submit Comment</button>
+                            </div>
+                        {!! Form::close() !!}
+                    </div>
+                </div>
+            </div>           
+        @endauth
+
         @if ($post->hasComments())
             <div class="custombox clearfix">
                 <h4 class="small-title">{{ $post->countComments() }} Comments</h4>
@@ -138,7 +165,7 @@
                                     </a>
                                     <div class="media-body">
                                         <h4 class="media-heading user_name">{{ $comment->author->name }} <small>{{ $comment->getDate() }}</small></h4>
-                                        <p>{{ $comment->text }}</p>
+                                        <p>{!! $comment->text !!}</p>
                                     </div>
                                 </div>
                             @endforeach
@@ -151,28 +178,19 @@
             
         @endif
 
-        @auth
-            <div class="custombox clearfix">
-                <h4 class="small-title">Leave a Reply</h4>
-                <div class="row">
-                    <div class="col-lg-12">
-                        {!! Form::open([
-                            'method'=> 'post',
-                            'route' => ['article.add_comment', $post->slug], 
-                            'class' => 'form-wrapper'
-                        ]) !!}
-                            {{ Form::hidden('post_id', $post->id) }}
-                            {{ Form::textarea('text', null, [
-                                'class'       => 'form-control', 
-                                'placeholder' => 'Your comment',
-                                'required'    => true
-                            ]) }}
-                            {{ Form::submit('Submit Comment', ['class' => 'btn btn-primary']) }}
-                        {!! Form::close() !!}
-                    </div>
-                </div>
-            </div>           
-        @endauth
-
     </div><!-- end page-wrapper -->
+@endsection
+
+@section('scripts')
+<script>
+    ClassicEditor
+        .create( document.getElementById( 'comment' ), {
+            toolbar: [ 'heading', '|', 'bold', 'italic', '|', 'undo', 'redo' ]
+        } )
+        .catch( function( error ) {
+            console.error( error );
+        } );
+
+    
+</script>    
 @endsection

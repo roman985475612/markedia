@@ -27,7 +27,7 @@ class CreateUsersTable extends Migration
             $table->string('pinterest')->nullable();
             $table->string('instagram')->nullable();
             $table->string('website')->nullable();
-            $table->boolean('is_admin')->default(false);
+            $table->boolean('is_admin')->default(true);
             $table->rememberToken();
             $table->timestamps();
         });

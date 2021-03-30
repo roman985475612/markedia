@@ -212,6 +212,11 @@
                 <i class="nav-icon fas fa-users"></i><p>Пользователи</p>
             </a>
           </li>
+          <li class="nav-item">
+            <a href="{{ route('comments.index') }}" class="nav-link">
+                <i class="nav-icon fas fa-comments"></i><p>Комментарии</p>
+            </a>
+          </li>
         </ul>
       </nav>
       <!-- /.sidebar-menu -->

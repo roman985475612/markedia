@@ -84,6 +84,7 @@
                 class="fas fa-plus-circle fa-2x"
             ></i>
         </button>
+        {{ $subs->links('vendor.pagination.blog-pagination') }}
     </div>
 </div>
 @endsection
